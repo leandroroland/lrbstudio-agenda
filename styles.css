@@ -218,11 +218,10 @@ body {
   letter-spacing: 0.6px;
   padding: 5px 10px;
   border-radius: 999px;
-  background: var(--busy-dim);
-  color: var(--busy);
+  background: var(--primary-dim);
+  color: var(--primary);
   white-space: nowrap;
 }
-.slot.blocked .badge { background: rgba(138, 141, 150, 0.14); color: var(--muted); }
 
 .summary {
   font-size: 12.5px;

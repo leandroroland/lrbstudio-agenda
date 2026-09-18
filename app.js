@@ -137,16 +137,18 @@ function renderEmpty() {
 }
 
 function renderSlots(slots) {
+  const firstIdx = slots.findIndex((s) => s.status !== "bloqueado");
   const rows = slots
     .map((s, i) => {
       const blocked = s.status === "bloqueado";
+      const badge = i === firstIdx ? `<span class="badge">Primer turno</span>` : "";
       return `<div class="slot${blocked ? " blocked" : ""}" style="animation-delay:${Math.min(i * 45, 300)}ms">
         <div class="slot-times">
           <span class="t1">${s.start}</span>
           <span class="dash">–</span>
           <span class="t2">${s.end}</span>
         </div>
-        <span class="badge">${blocked ? "No disponible" : "Ocupado"}</span>
+        ${badge}
       </div>`;
     })
     .join("");
