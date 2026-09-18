@@ -69,8 +69,8 @@ BEGIN
     END IF;
 
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
-               'start',  to_char(s.st, 'HH24:MI'),
-               'end',    to_char(s.en, 'HH24:MI'),
+               'start',  to_char(s.st AT TIME ZONE v_tz, 'HH24:MI'),
+               'end',    to_char(s.en AT TIME ZONE v_tz, 'HH24:MI'),
                'status', s.status
            ) ORDER BY s.st), '[]'::jsonb)
     INTO v_slots
