@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Agenda — LRB Studio</title>
+  <meta name="description" content="Agenda de turnos de LRB Studio. Consultá la disponibilidad del día sin necesidad de escribirnos." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300d1ff'/%3E%3Ctext x='16' y='21' font-family='Arial' font-size='13' font-weight='bold' text-anchor='middle' fill='%23050505'%3ELRB%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">LRB</div>
+        <div class="brand-text">
+          <h1>LRB Studio</h1>
+          <p>Agenda de turnos</p>
+        </div>
+      </div>
+      <div class="live" id="live" title="Conexión con la agenda">
+        <span class="dot"></span>
+        <span id="liveText">En vivo</span>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="datebar">
+        <button class="nav" id="prev" type="button" aria-label="Día anterior">&lsaquo;</button>
+        <button class="date-label" id="today" type="button" title="Volver a hoy">
+          <span class="date-rel" id="dateRel">Hoy</span>
+          <span class="date-full" id="dateFull">—</span>
+        </button>
+        <button class="nav" id="next" type="button" aria-label="Día siguiente">&rsaquo;</button>
+      </div>
+
+      <div class="hours" id="hours">
+        <span class="clock"></span>
+        <span id="hoursText">Cargando horario…</span>
+      </div>
+
+      <div class="content" id="content">
+        <div class="state loading">
+          <span class="spinner"></span>
+          <p>Cargando agenda…</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>Actualizado <b id="updated">—</b></span>
+      <span class="sep">·</span>
+      <span>Se actualiza solo</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
