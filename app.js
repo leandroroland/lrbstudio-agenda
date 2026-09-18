@@ -10,8 +10,8 @@ const CONFIG = {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5bXpjbXpteWNsaW1sZWFuZmltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MTM0ODksImV4cCI6MjA5NjE4OTQ4OX0.pjnJR77xGdMmwt-L5YFO3jc32dWmVUhWKepXDPHU3yM",
   barberId: "a8105994-21e9-47c1-80e0-7ef707339c29",
   refreshMs: 60000,
-  minDaysBack: 7,
-  maxDaysAhead: 30,
+  minDaysBack: 0,
+  maxDaysAhead: 2,
 };
 
 const els = {
@@ -24,8 +24,6 @@ const els = {
   hoursText: document.getElementById("hoursText"),
   content: document.getElementById("content"),
   updated: document.getElementById("updated"),
-  live: document.getElementById("live"),
-  liveText: document.getElementById("liveText"),
 };
 
 const state = {
@@ -73,7 +71,8 @@ function relativeLabel(d) {
   if (diff === 0) return "Hoy";
   if (diff === 1) return "Mañana";
   if (diff === -1) return "Ayer";
-  return formatFull(d).split(" ")[0];
+  const day = new Intl.DateTimeFormat("es-AR", { weekday: "long" }).format(d);
+  return day.charAt(0).toUpperCase() + day.slice(1);
 }
 
 /* ----- Data -------------------------------------------------------------- */
@@ -92,11 +91,6 @@ async function fetchAgenda(dateStr) {
 }
 
 /* ----- Rendering --------------------------------------------------------- */
-function setLive(ok) {
-  els.live.classList.toggle("off", !ok);
-  els.liveText.textContent = ok ? "En vivo" : "Sin conexión";
-}
-
 function setUpdated() {
   els.updated.textContent = new Intl.DateTimeFormat("es-AR", {
     hour: "2-digit",
@@ -183,11 +177,9 @@ async function load() {
   try {
     const data = await fetchAgenda(ymd(state.date));
     render(data);
-    setLive(true);
     setUpdated();
   } catch (err) {
     console.error(err);
-    setLive(false);
     renderError();
   } finally {
     state.loading = false;
